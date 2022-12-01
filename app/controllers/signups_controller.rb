@@ -3,7 +3,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
 
     def create
         signup = Signup.create!(signup_params)
-        render json: signup.activity, status: :created
+        render json: signup.activity, status: :created, serializer: ActivitiesSerializer
     end
 
     private
@@ -14,5 +14,5 @@ rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
     def render_unprocessable_entity(invalid)
         render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
-    
+
 end
